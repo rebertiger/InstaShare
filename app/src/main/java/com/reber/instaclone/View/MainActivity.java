@@ -40,10 +40,14 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     public void signInClicked(View view){
+        binding.signInButton.setClickable(false);
+        binding.signUpButton.setClickable(false);
         email = binding.emailText.getText().toString();
         passw = binding.passwordText.getText().toString();
         if (email.equals("") || passw.equals("")){
             Toast.makeText(this, "Email or password cannot be left empty", Toast.LENGTH_LONG).show();
+            binding.signInButton.setClickable(true);
+            binding.signUpButton.setClickable(true);
         }else{
             mAuth.signInWithEmailAndPassword(email,passw).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                 @Override
@@ -56,16 +60,23 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onFailure(@NonNull Exception e) {
                     Toast.makeText(MainActivity.this, e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                    binding.signUpButton.setClickable(true);
+                    binding.signInButton.setClickable(true);
                 }
             });
         }
 
     }
     public void signUpClicked(View view){
+        binding.signUpButton.setClickable(false);
+        binding.signInButton.setClickable(false);
         email = binding.emailText.getText().toString();
         passw = binding.passwordText.getText().toString();
         if(email.equals("") || passw.equals("")){
             Toast.makeText(this, "Email or password cannot be left empty ", Toast.LENGTH_SHORT).show();
+            binding.signInButton.setClickable(true);
+            binding.signUpButton.setClickable(true);
+
 
         }else{
             mAuth.createUserWithEmailAndPassword(email,passw).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
@@ -79,6 +90,8 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onFailure(@NonNull Exception e) {
                     Toast.makeText(MainActivity.this, e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                    binding.signInButton.setClickable(true);
+                    binding.signUpButton.setClickable(true);
                 }
             });
         }
